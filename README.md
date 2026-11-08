@@ -25,9 +25,6 @@
 6. [출력물](#6-출력물)
 7. [스크립트를 직접 실행하기](#7-스크립트를-직접-실행하기)
 8. [평가 방법](#8-평가-방법)
-9. [재현성 메모](#9-재현성-메모)
-10. [한계](#10-한계)
-11. [참고](#11-참고)
 
 ---
 
@@ -311,48 +308,3 @@ python comparison/compare.py
 
 LightFM 최종 설정: WARP loss, 32차원, learning rate 0.02, alpha 0, valid NDCG@10로 epoch 선택 (조기 종료, patience 5).
 H 전체 실험은 다시 튜닝하여 logistic loss, 16차원, learning rate 0.005, alpha 1e-4.
-
----
-
-## 9. 재현성 메모
-
-Windows에서 다시 실행해 저장소의 결과와 비교한 결과:
-
-| 항목 | 결과 |
-| --- | --- |
-| 원본 CSV → DB (전처리 전체) | 데이터 표 전부 일치 (`metadata` 설명 키만 추가됨) |
-| `split_train.py` (두 실험) | 일치 |
-| CBF 지표·사용자별 결과·재학습한 사전과 IDF | 일치 |
-| CBF 민감도 분석 (Food.com 최근 5개 H) | 일치 |
-| Random, Popularity | 일치 |
-| LightFM H 전체 (logistic) | 일치 |
-| LightFM H5 진단 (`lightfm_diagnose.py`, seed 42) | 일치 (추천 레시피 61개 / 35개, 아는 재료 2개 이하 32.4%) |
-| LightFM H5 최종 (WARP, LightFM 1.16) | Allrecipes 0.005786 (원본 0.005197), Food.com 0.000070 (원본 0.000053) |
-| 개선 1: 코사인 점수 (LightFM 1.16) | Allrecipes 0.001381 (원본 0.001350), Food.com 0.000072 (원본 0.000073) |
-| 개선 2: 인기도 재가중 (LightFM 1.16) | 선택된 설정 일치 (beta 0, alpha 0, 500개 기준 미달). 최종 수치는 H5 최종과 같은 값 |
-
-저장소의 LightFM 수치는 원작자가 **macOS + LightFM 1.17**로 만든 것이다. WARP는 학습 중 C 코드 안에서 무작위로
-음성 레시피를 뽑기 때문에, 버전·OS가 바뀌면 결과가 조금 달라질 수 있다.
-
-- 기본 설정(seed 42, 정규화·재가중 없음)은 1.16에서도 원본과 같다 (진단 결과와 재가중 그리드의 기본 칸이 일치).
-- 차이는 주로 seed 44(최적 epoch이 원본 3 → 1.16에서 1)와, 정규화(alpha > 0)나 재가중(beta > 0)을 켠 설정에서 나온다.
-- H5 최종의 차이는 seed 간 표준편차(Allrecipes 0.00082, Food.com 0.000038)보다 작고, 모든 결론은 같다.
-
----
-
-## 10. 한계
-
-- Allrecipes의 시간 정보는 평점 작성 시각이 아니라 `dateLastModified`(마지막 수정 시각)이다.
-- 사용자 프로필은 처음 5개 긍정 레시피만 쓴다 (추가 실험에서 전체로 늘려 비교).
-- Food.com 재료 등장의 9.33%는 Allrecipes 재료 사전에 없다 (Allrecipes test는 0.81%).
-- 후보가 매우 많아(32,889개 / 226,201개) 모든 절대 점수가 낮다.
-- 두 개선 시도는 테스트 결과를 본 뒤 설계한 사후 분석이다. 설정 선택은 Allrecipes valid에서만 했다.
-- H 전체 실험의 learning rate 0.005는 탐색 범위의 최솟값이었다 (더 작은 값은 시도하지 않음).
-
----
-
-## 11. 참고
-
-- LightFM: <https://github.com/lyst/lightfm> (Apache-2.0)
-- M. Kula, "Metadata Embeddings for User and Item Cold-start Recommendations", CBRecSys Workshop at RecSys 2015.
-- 데이터: [4절](#4-데이터-준비) 참고.
