@@ -7,6 +7,10 @@ data/*
 *.db.tmp
 .*.db.tmp
 
+# main.py output folders
+outputs/
+outputs_quick/
+
 # Generated intermediate files
 train_split/
 team1_data_cbf/code/preprocessing_handoff/out/
