@@ -1,0 +1,123 @@
+{
+  "dataset": "allrecipes",
+  "source_url": "https://www.kaggle.com/datasets/elisaxxygao/foodrecsysv1",
+  "source_version": 1,
+  "files": [
+    {
+      "role": "train",
+      "archive": "core-data-train_rating.csv.download",
+      "sha256": "4c99502a03c8a9c002c40a80bc1407aaabb448a30ba4353f9e0dc1a3f5dd5e91",
+      "member": "core-data-train_rating.csv",
+      "origin": "Kaggle public dataset version 1"
+    },
+    {
+      "role": "valid",
+      "archive": "core-data-valid_rating.csv.download",
+      "sha256": "18bc688a6c9963eb2564ba13b474636b6dae94b73bf1b441399eb9ec46bea53d",
+      "member": "core-data-valid_rating.csv",
+      "origin": "Kaggle public dataset version 1"
+    },
+    {
+      "role": "test",
+      "archive": "Allrecipes.zip",
+      "sha256": "164e2f33a8a7cafb1aa0288c63e3fc5cbb966397262b596d749a3d93f02aae5f",
+      "member": "core-data-test_rating.csv",
+      "origin": "user upload"
+    },
+    {
+      "role": "recipes",
+      "archive": "core-data_recipe.csv.download",
+      "sha256": "d35281fda5f22a3ec69bf8265ca15d8faf201443a467ddedbe8f345dfb117adf",
+      "member": "core-data_recipe.csv",
+      "origin": "Kaggle public dataset version 1"
+    }
+  ],
+  "rating_partitions": {
+    "train": {
+      "raw_rows": 676946,
+      "invalid_rating_or_identifier_or_time": 0,
+      "timestamp_min": "2000-02-08T12:09:11.987000",
+      "timestamp_max": "2011-10-14T17:43:08.433000",
+      "unknown_recipe_rows": 0,
+      "exact_duplicate_rows": 0,
+      "kept": 676946
+    },
+    "valid": {
+      "raw_rows": 133459,
+      "invalid_rating_or_identifier_or_time": 0,
+      "timestamp_min": "2011-10-14T17:46:56.443000",
+      "timestamp_max": "2013-01-31T22:23:27.613000",
+      "unknown_recipe_rows": 0,
+      "exact_duplicate_rows": 0,
+      "kept": 133459
+    },
+    "test": {
+      "raw_rows": 283440,
+      "invalid_rating_or_identifier_or_time": 0,
+      "timestamp_min": "2013-01-31T22:55:07.660000",
+      "timestamp_max": "2018-03-15T03:09:12.853000",
+      "unknown_recipe_rows": 0,
+      "exact_duplicate_rows": 0,
+      "kept": 283440
+    }
+  },
+  "recipes": {
+    "raw": 45630,
+    "kept": 45630,
+    "removed": {},
+    "raw_unique_ingredients": 34157,
+    "normalized_unique_ingredients": 23759
+  },
+  "split": {
+    "valid": {
+      "history_interactions_before_cutoff": 676946,
+      "future_interactions_at_or_after_cutoff": 133459,
+      "users_with_any_history": 68768,
+      "users_with_at_least_profile_size_positive_items": 24679,
+      "eligible_users": 14613,
+      "h_rows": 73065,
+      "l_unique_pairs": 79014,
+      "seen_unique_pairs_for_eligible_users": 435364,
+      "future_positive_rows_outside_cutoff_catalog": 10111,
+      "history_before": "2011-10-14T17:46:56.443000",
+      "target_end_exclusive": "2013-01-31T22:55:07.660000",
+      "candidate_items": 29093,
+      "catalog_availability": "first observed valid rating timestamp < history cutoff"
+    },
+    "test": {
+      "history_interactions_before_cutoff": 810405,
+      "future_interactions_at_or_after_cutoff": 283440,
+      "users_with_any_history": 68768,
+      "users_with_at_least_profile_size_positive_items": 29330,
+      "eligible_users": 26853,
+      "h_rows": 134265,
+      "l_unique_pairs": 141063,
+      "seen_unique_pairs_for_eligible_users": 680633,
+      "future_positive_rows_outside_cutoff_catalog": 41173,
+      "history_before": "2013-01-31T22:55:07.660000",
+      "target_end_exclusive": null,
+      "candidate_items": 32889,
+      "catalog_availability": "first observed valid rating timestamp < history cutoff"
+    }
+  },
+  "combined": {
+    "ratings": 1093845,
+    "users": 68768,
+    "rated_recipes": 45630,
+    "duplicate_user_item_pairs": 0
+  },
+  "limitations": [
+    "dateLastModified is a modification timestamp, not a confirmed original rating time",
+    "recipe publication dates absent; first observed rating used as conservative availability proxy",
+    "historical metadata snapshots absent; current recipe text may differ from historical text"
+  ],
+  "checks": {
+    "source_train_before_valid": true,
+    "source_valid_before_test": true,
+    "allrecipes_train_end_before_foodcom_cutoff": true,
+    "source_original_partitions_preserved": true,
+    "h_l_and_seen_l_overlap_zero": true
+  },
+  "normalization_alias_sha256": "efa982a6f8881171446e6697ed1b892879f3a7f7c57cd9c4f01242a888887eec",
+  "normalization_code_sha256": "28966591b8f57680cd765add4184f4649782db3dcdf0a9287440c406d30921a0"
+}

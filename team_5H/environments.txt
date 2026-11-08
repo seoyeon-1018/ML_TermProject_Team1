@@ -1,0 +1,17 @@
+[CBF]
+- numpy>=1.24,<3
+- scipy>=1.10,<2
+- pandas>=2.0,<4
+
+[Lightfm]
+name: mlteam
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9          # LightFM 1.16 conda-forge build exists for Python <= 3.9
+  - lightfm=1.16        # 1.17 crashes with warp/bpr loss on Windows
+  - numpy<2
+  - pandas<3
+  - scipy
+  - scikit-learn
+  - matplotlib

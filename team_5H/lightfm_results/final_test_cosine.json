@@ -1,0 +1,48 @@
+{
+  "config": {
+    "loss": "warp",
+    "dim": 32,
+    "lr": 0.02,
+    "alpha": 0.0,
+    "max_epochs": 20,
+    "patience": 5,
+    "threads": 10,
+    "db": "allrecipes.db"
+  },
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "best_valid_epochs": [
+    20,
+    20,
+    19
+  ],
+  "results": {
+    "Allrecipes valid": {
+      "precision@10": 0.0018111727001072105,
+      "recall@10": 0.0036181112281691683,
+      "ndcg@10": 0.002713307880405986,
+      "ndcg@10_std": 0.00041528212108430935,
+      "unique_recipes": 989,
+      "le2_known": 0.05745797121284701
+    },
+    "Allrecipes test": {
+      "precision@10": 0.0009123747812162516,
+      "recall@10": 0.001815335375613621,
+      "ndcg@10": 0.0013503891401280812,
+      "ndcg@10_std": 0.0001546776009744394,
+      "unique_recipes": 1210,
+      "le2_known": 0.05179681972219119
+    },
+    "Food.com zero-shot": {
+      "precision@10": 7.11068973690448e-05,
+      "recall@10": 1.8419817775731055e-05,
+      "ndcg@10": 7.29951593448383e-05,
+      "ndcg@10_std": 2.70920098680752e-05,
+      "unique_recipes": 2405,
+      "le2_known": 0.12089752706012484
+    }
+  }
+}

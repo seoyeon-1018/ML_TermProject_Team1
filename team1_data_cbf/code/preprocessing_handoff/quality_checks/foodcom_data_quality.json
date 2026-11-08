@@ -1,0 +1,84 @@
+{
+  "input": {
+    "zip_filename": "Food.com(1).zip",
+    "sha256": "e7a43e623c616799f78a0479b550483450fd7ede4e0c40979db3458a82b5b913",
+    "members_used": [
+      "RAW_recipes.csv",
+      "RAW_interactions.csv"
+    ],
+    "members_not_used": [
+      "PP_recipes.csv",
+      "PP_users.csv",
+      "ingr_map.pkl",
+      "interactions_train.csv",
+      "interactions_validation.csv",
+      "interactions_test.csv"
+    ]
+  },
+  "protocol": {
+    "cutoff": "2013-02-01",
+    "history": "date < cutoff",
+    "targets": "date >= cutoff",
+    "profile_size": 5,
+    "positive_rating": 4,
+    "candidate_creation": "submitted < cutoff",
+    "alias_file_sha256": "efa982a6f8881171446e6697ed1b892879f3a7f7c57cd9c4f01242a888887eec",
+    "idf_fitted_on_foodcom": false
+  },
+  "recipes": {
+    "raw_rows": 231637,
+    "kept": 231637,
+    "removed_by_first_reason": {},
+    "raw_unique_ingredient_strings": 14942,
+    "normalized_unique_ingredient_strings": 14720,
+    "candidate_items_at_cutoff": 226201,
+    "submitted_min": "1999-08-06",
+    "submitted_max": "2018-12-04"
+  },
+  "interactions": {
+    "raw_rows": 1132367,
+    "kept": 1070294,
+    "removed_by_first_reason": {
+      "invalid_id": 0,
+      "unknown_or_rejected_recipe": 0,
+      "invalid_interaction_date": 0,
+      "invalid_rating": 0,
+      "rating_zero": 60847,
+      "interaction_before_recipe_submission": 1226,
+      "exact_duplicate": 0
+    },
+    "users_kept": 196044,
+    "recipes_with_ratings_kept": 226451,
+    "date_min": "2000-01-25",
+    "date_max": "2018-12-20",
+    "conflicting_same_user_item_date_groups_retained": 0,
+    "rating_counts": {
+      "1": 12815,
+      "2": 14110,
+      "3": 40747,
+      "4": 186986,
+      "5": 815636
+    }
+  },
+  "split": {
+    "history_interactions_before_cutoff": 929362,
+    "future_interactions_at_or_after_cutoff": 140932,
+    "users_with_any_history": 127762,
+    "users_with_at_least_profile_size_positive_items": 19319,
+    "eligible_users": 4219,
+    "h_rows": 21095,
+    "l_unique_pairs": 42200,
+    "seen_unique_pairs_for_eligible_users": 399387,
+    "future_positive_rows_outside_cutoff_catalog": 10973
+  },
+  "checks": {
+    "h_l_user_item_overlap": 0,
+    "seen_l_overlap": 0,
+    "h_exactly_profile_size_per_user": true,
+    "h_strictly_before_cutoff": true,
+    "l_at_or_after_cutoff": true,
+    "identifiers_namespaced": true,
+    "allrecipes_model_required_for_cbf_evaluation": true
+  },
+  "status": "Food.com preprocessing and splitting complete. No CBF performance computed without Allrecipes training data."
+}

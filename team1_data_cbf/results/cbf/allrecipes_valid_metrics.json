@@ -1,0 +1,19 @@
+{
+  "dataset": "allrecipes",
+  "split": "valid",
+  "users": 14613,
+  "candidates": 29093,
+  "k": 10,
+  "macro_metrics": {
+    "precision@10": 0.0008622459453910903,
+    "recall@10": 0.0019664869333519894,
+    "ndcg@10": 0.0014137192270748068
+  },
+  "ingredient_diagnostics": {
+    "documents": 29093,
+    "ingredient_occurrences": 252561,
+    "oov_occurrences": 0,
+    "oov_rate": 0.0,
+    "zero_vector_documents": 0
+  }
+}

@@ -1,0 +1,13 @@
+# conda env create -f environment.yml && conda activate mlteam
+# LightFM 1.16 (Python 3.9): 1.17 crashes on Windows when training with warp/bpr loss.
+name: mlteam
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9
+  - lightfm=1.16
+  - numpy<2
+  - pandas<3
+  - scipy
+  - scikit-learn
+  - matplotlib

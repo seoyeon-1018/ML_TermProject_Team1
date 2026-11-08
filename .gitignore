@@ -1,0 +1,27 @@
+# Raw data (download it, see data/README.md)
+data/*
+!data/README.md
+
+# Generated databases (rebuild with the preprocessing step, see README.md)
+*.db
+*.db.tmp
+.*.db.tmp
+
+# Generated intermediate files
+train_split/
+team1_data_cbf/code/preprocessing_handoff/out/
+team1_data_cbf/code/cbf_*_result/
+team1_data_cbf/code/cbf_analysis/
+team1_data_cbf/code/new_cbf_model.json
+foodcom_slim.zip
+
+# Python / OS / editor
+__pycache__/
+*.py[cod]
+.DS_Store
+.vscode/
+.idea/
+.ipynb_checkpoints/
+
+# Local tool settings
+.claude/

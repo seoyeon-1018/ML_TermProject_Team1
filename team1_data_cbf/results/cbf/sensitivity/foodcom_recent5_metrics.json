@@ -1,0 +1,19 @@
+{
+  "dataset": "foodcom",
+  "split": "test",
+  "users": 4219,
+  "candidates": 226201,
+  "k": 10,
+  "macro_metrics": {
+    "precision@10": 0.00016591609386110455,
+    "recall@10": 0.0003817669543865111,
+    "ndcg@10": 0.00046256948578504665
+  },
+  "ingredient_diagnostics": {
+    "documents": 226201,
+    "ingredient_occurrences": 2040486,
+    "oov_occurrences": 190346,
+    "oov_rate": 0.0932846390516769,
+    "zero_vector_documents": 239
+  }
+}

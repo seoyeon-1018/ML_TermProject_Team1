@@ -1,0 +1,18 @@
+{
+  "dataset": "foodcom",
+  "cutoff": "2013-02-01",
+  "positive_rating": 4,
+  "profile_size": 5,
+  "top_k": 10,
+  "history_rule": "date < cutoff",
+  "target_rule": "date >= cutoff; rating >= 4; item in cutoff catalog; never rated before cutoff",
+  "candidate_rule": "submitted < cutoff; valid nonempty normalized ingredients",
+  "history_tie_break": "date ascending, namespaced recipe_id ascending (lexicographic)",
+  "eligible_user_rule": "at least 5 distinct positive history recipes and at least 1 eligible target",
+  "profile_rule": "first 5 distinct positive history recipes (final); 'recent' 5 kept as a sensitivity analysis; equal-weight mean of L2-normalized TF-IDF vectors",
+  "seen_rule": "exclude every recipe rated 1-5 before cutoff, not just H",
+  "rating_zero_rule": "exclude all rating 0 rows",
+  "relevance_rule": "binary; future rating >=4; deduplicate user-recipe targets",
+  "idf_rule": "fit on Allrecipes training recipe documents only; frozen on Food.com",
+  "scope": "Fixed-date recommendation of recipes already available at cutoff; later new recipes excluded"
+}

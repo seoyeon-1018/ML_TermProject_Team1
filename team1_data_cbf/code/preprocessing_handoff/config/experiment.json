@@ -1,0 +1,27 @@
+{
+  "model": "binary ingredient TF-IDF + cosine",
+  "profile_size": 5,
+  "profile_rule": {
+    "final": "first 5 positives on every dataset (same as LightFM training H)",
+    "sensitivity": "recent 5 positives before 2013-02-01 on Food.com"
+  },
+  "positive_rating": 4,
+  "top_k": 10,
+  "source_partitioning": "original non-overlapping timestamp partitions verified",
+  "source_time_column": "dateLastModified (timestamp proxy)",
+  "source_valid_start": "2011-10-14T17:46:56.443000",
+  "source_test_start": "2013-01-31T22:55:07.660000",
+  "source_catalog_rule": "first observed rating timestamp < evaluation cutoff",
+  "foodcom_cutoff": "2013-02-01",
+  "foodcom_catalog_rule": "submitted < cutoff",
+  "min_df_grid": [
+    1,
+    2,
+    5
+  ],
+  "selection_metric": "Allrecipes valid macro NDCG@10",
+  "final_refit": false,
+  "seen_exclusion": "all historical valid ratings 1-5",
+  "identity_features": "no ID features in CBF",
+  "tie_break": "lexicographic recipe_id"
+}
