@@ -174,7 +174,7 @@ python -c "import lightfm, numpy; print(lightfm.__version__, numpy.__version__)"
 `main.py` 하나로 전처리부터 비교 그림까지 전부 실행한다. 저장소 최상위 폴더에서 실행한다.
 
 ```bash
-python main.py --quick      # 빠른 동작 확인 (약 30분): seed 1개, epoch 2, 작은 탐색 범위
+python main.py --quick      # 빠른 동작 확인 (약 25분): seed 1개, epoch 2, 작은 탐색 범위
 python main.py              # 보고서와 같은 설정으로 전체 실행 (약 2시간)
 ```
 
@@ -183,13 +183,13 @@ python main.py              # 보고서와 같은 설정으로 전체 실행 (�
 | 단계 | 하는 일 | 소요 시간* |
 | --- | --- | --- |
 | `check` | `data/`의 CSV 6개와 Python·LightFM 버전 확인 | 즉시 |
-| `db` | 원본 CSV → 재료 정규화 → 시간 분할 → `allrecipes.db`, `foodcom.db` | 약 6분 |
-| `cbf` | CBF 평가(Allrecipes test, Food.com) + 분석 그림 | 약 3분 |
-| `h5` | 학습 데이터 분할 → valid 학습 곡선 → 최종 평가 → 진단 → 개선 시도 2개 → 그림 | 약 1시간 이상 |
-| `fullh` | H 전체 DB 생성 → 학습 데이터 분할 → 최종 평가 | 약 20분 |
+| `db` | 원본 CSV → 재료 정규화 → 시간 분할 → `allrecipes.db`, `foodcom.db` | 약 3분 |
+| `cbf` | CBF 평가(Allrecipes test, Food.com) + 분석 그림 | 약 2분 |
+| `h5` | 학습 데이터 분할 → valid 학습 곡선 → 최종 평가 → 진단 → 개선 시도 2개 → 그림 | 약 1시간 20분 (최종 평가 12분, 진단 4분, 코사인 23분, 재가중 30분) |
+| `fullh` | H 전체 DB 생성 → 학습 데이터 분할 → 최종 평가 | 약 22분 |
 | `compare` | 두 실험 비교 표와 그림 | 즉시 |
 
-\* Windows PC 1대, LightFM 단일 스레드 기준의 대략적인 값.
+\* Windows PC 1대, LightFM 1.16 단일 스레드 기준으로 측정한 대략적인 값. `--quick` 전체는 약 23분.
 
 ### 옵션
 
@@ -328,10 +328,15 @@ Windows에서 다시 실행해 저장소의 결과와 비교한 결과:
 | LightFM H 전체 (logistic) | 일치 |
 | LightFM H5 진단 (`lightfm_diagnose.py`, seed 42) | 일치 (추천 레시피 61개 / 35개, 아는 재료 2개 이하 32.4%) |
 | LightFM H5 최종 (WARP, LightFM 1.16) | Allrecipes 0.005786 (원본 0.005197), Food.com 0.000070 (원본 0.000053) |
+| 개선 1: 코사인 점수 (LightFM 1.16) | Allrecipes 0.001381 (원본 0.001350), Food.com 0.000072 (원본 0.000073) |
+| 개선 2: 인기도 재가중 (LightFM 1.16) | 선택된 설정 일치 (beta 0, alpha 0, 500개 기준 미달). 최종 수치는 H5 최종과 같은 값 |
 
 저장소의 LightFM 수치는 원작자가 **macOS + LightFM 1.17**로 만든 것이다. WARP는 학습 중 C 코드 안에서 무작위로
-음성 레시피를 뽑기 때문에, 버전·OS가 바뀌면 일부 seed의 결과가 조금 달라질 수 있다. 위 차이는 seed 간 표준편차
-(Allrecipes 0.00082, Food.com 0.000038)보다 작고, 결론은 같다.
+음성 레시피를 뽑기 때문에, 버전·OS가 바뀌면 결과가 조금 달라질 수 있다.
+
+- 기본 설정(seed 42, 정규화·재가중 없음)은 1.16에서도 원본과 같다 (진단 결과와 재가중 그리드의 기본 칸이 일치).
+- 차이는 주로 seed 44(최적 epoch이 원본 3 → 1.16에서 1)와, 정규화(alpha > 0)나 재가중(beta > 0)을 켠 설정에서 나온다.
+- H5 최종의 차이는 seed 간 표준편차(Allrecipes 0.00082, Food.com 0.000038)보다 작고, 모든 결론은 같다.
 
 ---
 
